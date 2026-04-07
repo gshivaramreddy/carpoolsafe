@@ -3,11 +3,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 import logging
 
-from backend.models.database import get_db
-from backend.models.models import User, Ride, SOSAlert
-from backend.models.schemas import SOSRequest, SOSResponse
-from backend.utils.auth import get_current_user
-from backend.websocket.manager import manager
+from models.database import get_db
+from models.models import User, Ride, SOSAlert
+from models.schemas import SOSRequest, SOSResponse
+from utils.auth import get_current_user
+from websocket.manager import manager
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/safety", tags=["Safety"])

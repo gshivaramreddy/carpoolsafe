@@ -4,12 +4,12 @@ from sqlalchemy import select, update
 from sqlalchemy.orm import selectinload
 from typing import List
 
-from backend.models.database import get_db
-from backend.models.models import Ride, Booking, User, RideStatus, BookingStatus
-from backend.models.schemas import BookRideRequest, BookingResponse
-from backend.utils.auth import get_current_user
-from backend.utils.geo import haversine_distance
-from backend.services.ml_pricing import estimate_total_price
+from models.database import get_db
+from models.models import Ride, Booking, User, RideStatus, BookingStatus
+from models.schemas import BookRideRequest, BookingResponse
+from utils.auth import get_current_user
+from utils.geo import haversine_distance
+from services.ml_pricing import estimate_total_price
 
 router = APIRouter(prefix="/booking", tags=["Bookings"])
 

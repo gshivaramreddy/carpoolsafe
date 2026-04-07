@@ -9,8 +9,8 @@ from typing import Optional
 from pydantic import BaseModel
 from datetime import datetime
 
-from backend.models.database import get_db
-from backend.models.models import (
+from models.database import get_db
+from models.models import (
     GroupRide, GroupMember, GroupMessage, GroupScheduleVote,
     GroupRideStatus, GroupMemberStatus, User, Ride
 )

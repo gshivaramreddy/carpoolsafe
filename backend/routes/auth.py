@@ -5,10 +5,10 @@ import aiofiles
 import os
 import uuid
 
-from backend.models.database import get_db
-from backend.models.models import User
-from backend.models.schemas import SignupRequest, LoginRequest, TokenResponse, UserProfile, UpdateProfileRequest
-from backend.utils.auth import hash_password, verify_password, create_access_token, get_current_user
+from models.database import get_db
+from models.models import User
+from models.schemas import SignupRequest, LoginRequest, TokenResponse, UserProfile, UpdateProfileRequest
+from utils.auth import hash_password, verify_password, create_access_token, get_current_user
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
   

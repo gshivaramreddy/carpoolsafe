@@ -4,15 +4,15 @@ from sqlalchemy import select, and_
 from datetime import datetime, timezone
 from typing import List, Optional
 
-from backend.models.database import get_db
-from backend.models.models import Ride, User, RideStatus
-from backend.models.schemas import (
+from models.database import get_db
+from models.models import Ride, User, RideStatus
+from models.schemas import (
     CreateRideRequest, RideResponse, SearchRideRequest, RideMatchResult
 )
-from backend.utils.auth import get_current_user
-from backend.utils.geo import fetch_google_route, haversine_distance
-from backend.services.matching import compute_match_metrics, rank_matches
-from backend.services.ml_pricing import suggest_price, estimate_total_price
+from utils.auth import get_current_user
+from utils.geo import fetch_google_route, haversine_distance
+from services.matching import compute_match_metrics, rank_matches
+from services.ml_pricing import suggest_price, estimate_total_price
 
 router = APIRouter(prefix="/ride", tags=["Rides"])
 

@@ -15,13 +15,13 @@ from pydantic import BaseModel
 from datetime import datetime, timezone
 import uuid
 
-from backend.models.database import get_db
-from backend.models.models import (
+from models.database import get_db
+from models.models import (
     Payment, CostSplit, Booking, Ride, User,
     PaymentStatus, SplitMethod, BookingStatus
 )
-from backend.utils.auth import get_current_user
-from backend.utils.geo import haversine_distance
+from utils.auth import get_current_user
+from utils.geo import haversine_distance
 
 router = APIRouter(prefix="/payment", tags=["Payments"])
 

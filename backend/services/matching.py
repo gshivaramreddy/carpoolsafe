@@ -10,7 +10,7 @@ from typing import List, Tuple
 from datetime import datetime, timezone
 import math
 
-from backend.utils.geo import (
+from utils.geo import (
     haversine_distance,
     point_to_route_distance,
     validate_direction,
