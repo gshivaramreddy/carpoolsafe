@@ -6,7 +6,7 @@ from typing import Optional, Dict, Any
 
 load_dotenv()
 
-BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000").rstrip("/")
+BBACKEND_URL = "https://carpoolsafe.onrender.com"
 TIMEOUT = 15
 
 
