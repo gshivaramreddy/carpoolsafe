@@ -9,9 +9,9 @@ from contextlib import asynccontextmanager
 import logging
 import os
 
-from backend.models.database import create_tables
-from backend.routes import auth, rides, bookings, safety, group_rides, payments
-from backend.websocket import tracking
+from models.database import create_tables
+from routes import auth, rides, bookings, safety, group_rides, payments
+from websocket.tracking import router as tracking_router
 
 logging.basicConfig(
     level=logging.INFO,
@@ -57,7 +57,7 @@ app.include_router(safety.router)
 # New features
 app.include_router(group_rides.router)
 app.include_router(payments.router)
-
+app.include_router(tracking_router)
 # WebSocket
 app.include_router(tracking.router)
 
