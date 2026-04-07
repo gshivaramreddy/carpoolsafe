@@ -89,7 +89,7 @@ async def get_trip_share_link(
     if not ride:
         raise HTTPException(404, "Ride not found")
     
-    from backend.utils.config import settings
+    from utils.config import settings
     share_link = f"{settings.BACKEND_URL}/tracking?ride_id={ride_id}"
     
     return {

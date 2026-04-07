@@ -104,7 +104,7 @@ class ConnectionManager:
         if last:
             last_lat = last.get("lat", 0)
             last_lng = last.get("lng", 0)
-            from backend.utils.geo import haversine_distance
+            from utils.geo import haversine_distance
             dist = haversine_distance(lat, lng, last_lat, last_lng)
             
             if dist > 0.05:  # moved more than 50m

@@ -5,12 +5,12 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Query
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.models.database import AsyncSessionLocal
-from backend.models.models import Ride, User
-from backend.utils.auth import get_current_user_ws
-from backend.utils.geo import detect_route_deviation
-from backend.utils.config import settings
-from backend.websocket.manager import manager
+from models.database import AsyncSessionLocal
+from models.models import Ride, User
+from utils.auth import get_current_user_ws
+from utils.geo import detect_route_deviation
+from utils.config import settings
+from websocket.manager import manager
 
 logger = logging.getLogger(__name__)
 router = APIRouter()

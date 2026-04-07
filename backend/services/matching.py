@@ -16,7 +16,7 @@ from utils.geo import (
     validate_direction,
     is_point_between_on_route,
 )
-from backend.models.schemas import SearchRideRequest, RideMatchResult, RideResponse
+from models.schemas import SearchRideRequest, RideMatchResult, RideResponse
 
 
 # Matching weights (tunable)

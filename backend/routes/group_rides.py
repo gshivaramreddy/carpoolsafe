@@ -14,7 +14,7 @@ from models.models import (
     GroupRide, GroupMember, GroupMessage, GroupScheduleVote,
     GroupRideStatus, GroupMemberStatus, User, Ride
 )
-from backend.utils.auth import get_current_user
+from utils.auth import get_current_user
 
 router = APIRouter(prefix="/group", tags=["Group Rides"])
 
