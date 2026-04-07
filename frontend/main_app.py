@@ -311,7 +311,7 @@ def render_dashboard():
 
     st.markdown(f"""
     <h1 style='font-family:Syne,sans-serif;font-size:2.1rem;margin-bottom:4px;'>
-      {greet}, <span class='gradient-text'>{st.session_state.user_name}</span> 👋
+      {greet}, <span class='gradient-text'>{st.session_state.get("user_name", "User")}</span> 👋
     </h1>
     <p style='color:#4a7a98;margin-bottom:26px;font-size:15px;'>
       Ready to carpool? Here's your dashboard.
@@ -340,11 +340,15 @@ def render_dashboard():
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Stats
+    # Stats
+try:
     rides = get("/ride/my-rides") or []
     bookings = get("/booking/my-bookings") or []
     groups = get("/group/my-groups") or []
     payments = get("/payment/my-payments") or []
-    paid = sum(p.get("amount", 0) for p in payments if p.get("status") == "completed")
+except Exception as e:
+    st.error(f"API Error: {e}")
+    rides, bookings, groups, payments = [], [], [], []
 
     c1,c2,c3,c4 = st.columns(4)
     c1.metric("🚗 Rides Created", len(rides),    delta=f"{len([r for r in rides if r.get('status')=='scheduled'])} scheduled")
