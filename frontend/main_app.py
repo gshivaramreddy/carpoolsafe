@@ -6,7 +6,7 @@ No sidebar shown before login.
 from api_client import do_signup
 import streamlit as st
 import sys, os
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
 
 from api_client import post, get, is_logged_in, do_login, do_logout, backend_is_up
 st.set_page_config(
@@ -285,10 +285,10 @@ def render_auth():
                     user = result.get("user", {})
 
                     st.session_state.token = result.get("access_token")
-                    st.session_state.user_id = user.get("id")
-                    st.session_state.user_name = user.get("name")
-                    st.session_state.user_role = user.get("role")
-                    st.session_state.user_gender = user.get("gender", "")
+                    st.session_state.user_id = result.get("user_id")
+                    st.session_state.user_name = result.get("name")
+                    st.session_state.user_role = result.get("role")
+                    st.session_state.user_gender = ""
 
                     st.success(f"🎉 Account created! Welcome, {user.get('name')}!")
                     st.balloons()
@@ -299,7 +299,7 @@ def render_auth():
 # DASHBOARD — shown after login, sidebar visible
 # ══════════════════════════════════════════════════════════════════════════════
 def render_dashboard():
-    from frontend.sidebar import render_sidebar
+    from sidebar import render_sidebar
     render_sidebar()
 
     import datetime
