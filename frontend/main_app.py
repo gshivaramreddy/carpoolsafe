@@ -299,8 +299,11 @@ def render_auth():
 # DASHBOARD — shown after login, sidebar visible
 # ══════════════════════════════════════════════════════════════════════════════
 def render_dashboard():
-    from sidebar import render_sidebar
-    render_sidebar()
+    try:
+        import sidebar
+        sidebar.render_sidebar()
+    except Exception as e:
+        st.error(f"Sidebar error: {e}")   # ✅ correctly indented
 
     import datetime
     hour = datetime.datetime.now().hour
@@ -341,7 +344,7 @@ def render_dashboard():
     bookings = get("/booking/my-bookings") or []
     groups = get("/group/my-groups") or []
     payments = get("/payment/my-payments") or []
-    paid     = sum(p["amount"] for p in payments if p.get("status") == "completed")
+    paid = sum(p.get("amount", 0) for p in payments if p.get("status") == "completed")
 
     c1,c2,c3,c4 = st.columns(4)
     c1.metric("🚗 Rides Created", len(rides),    delta=f"{len([r for r in rides if r.get('status')=='scheduled'])} scheduled")
@@ -415,4 +418,7 @@ def render_dashboard():
 if not is_logged_in():
     render_auth()
 else:
-    render_dashboard()
+    try:
+        render_dashboard()
+    except Exception as e:
+        st.error(f"🔥 Dashboard crash: {e}")
