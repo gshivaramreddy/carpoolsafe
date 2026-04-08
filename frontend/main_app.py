@@ -433,7 +433,10 @@ except Exception as e:
 
 # ── MAIN ROUTING ───────────────────────────────────────────────────────────────
 
-if not is_logged_in():
-    render_auth()
-else:
-    render_dashboard()
+def main():
+    if not is_logged_in():
+        render_auth()
+    else:
+        render_dashboard()
+
+main()
