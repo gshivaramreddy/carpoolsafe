@@ -64,9 +64,9 @@ def get(endpoint: str):
         return None
 
 
-def is_logged_in() -> bool:
-    return bool(st.session_state.get("token"))
-
+def is_logged_in():
+    token = st.session_state.get("token")
+    return token is not None and token != ""
 
 def do_logout():
     st.session_state.clear()

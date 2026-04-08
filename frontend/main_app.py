@@ -149,7 +149,9 @@ for k in ["token","user_id","user_name","user_role","user_gender"]:
     if k not in st.session_state:
         st.session_state[k] = None
 
-
+# 🔥 FORCE RESET IF TOKEN INVALID
+if st.session_state.get("token") == "":
+    st.session_state.token = None
 # ══════════════════════════════════════════════════════════════════════════════
 # LOGIN / REGISTER  — no sidebar, completely clean page
 # ══════════════════════════════════════════════════════════════════════════════
@@ -299,6 +301,7 @@ def render_auth():
 # DASHBOARD — shown after login, sidebar visible
 # ══════════════════════════════════════════════════════════════════════════════
 def render_dashboard():
+    st.write("✅ Dashboard loaded")
     try:
         import sidebar
         sidebar.render_sidebar()
