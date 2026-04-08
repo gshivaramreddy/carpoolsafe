@@ -1,1 +1,5 @@
-from main_app import *
+import streamlit as st
+
+st.write("🚀 APP ENTRY WORKING")
+
+import main_app
