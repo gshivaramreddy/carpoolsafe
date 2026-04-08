@@ -45,23 +45,39 @@ def handle_response(resp: requests.Response, silent: bool = False) -> Optional[A
 
 def post(endpoint: str, data: dict, auth: bool = True):
     try:
-        url = build_url(endpoint)
-        headers = get_headers() if auth else {"Content-Type": "application/json"}
+        res = requests.post(
+            build_url(endpoint),
+            json=data,
+            headers=get_headers() if auth else {"Content-Type": "application/json"},
+            timeout=TIMEOUT
+        )
 
-        resp = requests.post(url, json=data, headers=headers, timeout=TIMEOUT)
-        return handle_response(resp)
+        return res.json()
 
     except Exception as e:
-        st.error(f"Request failed: {e}")
+        st.error(f"POST error: {e}")
         return None
-
 
 def get(endpoint):
     try:
-        res = requests.get(build_url(endpoint), timeout=TIMEOUT)
+        res = requests.get(
+            build_url(endpoint),
+            headers=get_headers(),   # ✅ ADD THIS LINE
+            timeout=TIMEOUT
+        )
+
+        if res.status_code == 401:
+            st.warning("⚠️ Please login first")
+            return []
+
+        if res.status_code != 200:
+            st.error(f"API error: {res.status_code}")
+            return []
+
         return res.json()
+
     except Exception as e:
-        st.error(f"⚠️ Backend not ready: {e}")
+        st.error(f"⚠️ Backend error: {e}")
         return []
 
 
