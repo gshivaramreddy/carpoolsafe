@@ -322,24 +322,33 @@ def render_dashboard():
     """, unsafe_allow_html=True)
 
     # Quick action cards
-    c1,c2,c3,c4 = st.columns(4)
-    for col,(icon,title,sub,color,bg,page) in zip([c1,c2,c3,c4],[
-        ("🚗","Create Ride",  "Offer seats on your route",  "#00d2ff","rgba(0,210,255,0.08)","pages/1_Create_Ride.py"),
-        ("🔍","Find a Ride",  "AI matches rides for you",   "#7b2ff7","rgba(123,47,247,0.08)","pages/2_Search_Rides.py"),
-        ("👥","Group Rides",  "Plan trips with friends",    "#00e676","rgba(0,230,118,0.08)","pages/7_Group_Rides.py"),
-        ("🛡️","Safety Hub",  "SOS & emergency tools",      "#ff416c","rgba(255,65,108,0.08)","pages/5_Safety_Panel.py"),
-    ]):
-        with col:
-            st.markdown(f"""
-            <div style='background:{bg};border:1px solid {color}33;border-radius:20px;
-                        padding:20px;text-align:center;margin-bottom:8px;'>
-              <div style='font-size:34px;'>{icon}</div>
-              <div style='font-weight:700;font-family:Syne,sans-serif;
-                          margin:8px 0 4px;color:{color};font-size:14px;'>{title}</div>
-              <div style='color:#4a7a98;font-size:12px;'>{sub}</div>
-            </div>""", unsafe_allow_html=True)
-            st.page_link(page, label=f"Open →", use_container_width=True)
+    # Quick action cards (SAFE VERSION)
+st.write("🧪 Rendering quick cards...")
 
+try:
+    c1, c2, c3, c4 = st.columns(4)
+
+    cards = [
+        ("🚗","Create Ride","Offer seats","#00d2ff","rgba(0,210,255,0.08)","pages/1_Create_Ride.py"),
+        ("🔍","Find Ride","AI matches","#7b2ff7","rgba(123,47,247,0.08)","pages/2_Search_Rides.py"),
+        ("👥","Group Rides","Plan trips","#00e676","rgba(0,230,118,0.08)","pages/7_Group_Rides.py"),
+        ("🛡️","Safety","SOS tools","#ff416c","rgba(255,65,108,0.08)","pages/5_Safety_Panel.py"),
+    ]
+
+    for col, card in zip([c1,c2,c3,c4], cards):
+        icon, title, sub, color, bg, page = card
+
+        with col:
+            st.markdown(f"{icon} **{title}**")
+            st.caption(sub)
+
+            try:
+                st.page_link(page, label="Open")
+            except Exception as e:
+                st.error(f"Page error: {e}")
+
+except Exception as e:
+    st.error(f"🚨 Cards crash: {e}")
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Stats
