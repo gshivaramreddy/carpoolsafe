@@ -1,1 +1,3 @@
-import streamlit as st
+from main_app import main
+
+main()
