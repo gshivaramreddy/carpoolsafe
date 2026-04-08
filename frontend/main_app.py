@@ -177,7 +177,9 @@ def render_auth():
     if st.button("Login"):
         st.write("Clicked login")
 
-    # ── SIGN IN TAB ───────────────────────────────────────────────────────────
+    # ── SIGN IN TAB ─────────
+    # ──────────────────────────────────────────────────
+    tab_login, tab_signup = st.tabs(["Login", "Create Account"])
     with tab_login:
         st.markdown("<br>", unsafe_allow_html=True)
         li_email = st.text_input("Email address", placeholder="you@example.com", key="li_email")
