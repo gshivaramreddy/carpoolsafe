@@ -340,16 +340,15 @@ def render_dashboard():
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Stats
-    # Stats
-try:
-    rides = get("/ride/my-rides") or []
-    bookings = get("/booking/my-bookings") or []
-    groups = get("/group/my-groups") or []
-    payments = get("/payment/my-payments") or []
-except Exception as e:
-    st.error(f"API Error: {e}")
-    rides, bookings, groups, payments = [], [], [], []
-
+    try:
+        rides = get("/ride/my-rides") or []
+        bookings = get("/booking/my-bookings") or []
+        groups = get("/group/my-groups") or []
+        payments = get("/payment/my-payments") or []
+    except Exception as e:
+        st.error(f"API Error: {e}")
+        rides, bookings, groups, payments = [], [], [], []
+        paid = 0 
     c1,c2,c3,c4 = st.columns(4)
     c1.metric("🚗 Rides Created", len(rides),    delta=f"{len([r for r in rides if r.get('status')=='scheduled'])} scheduled")
     c2.metric("🎟️ My Bookings",  len(bookings),  delta=f"{len([b for b in bookings if b.get('status')=='confirmed'])} active")
