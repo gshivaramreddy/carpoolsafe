@@ -168,52 +168,14 @@ def render_auth():
     """, unsafe_allow_html=True)
 
     # ── Backend status banner ──────────────────────────────────────────────────
-    if not backend_is_up():
-        st.markdown("""
-        <div style='background:rgba(255,65,108,0.1);border:1px solid rgba(255,65,108,0.35);
-                    border-radius:12px;padding:12px 16px;margin-bottom:20px;
-                    display:flex;align-items:center;gap:10px;'>
-          <span style='font-size:20px;'>🔴</span>
-          <div>
-            <div style='font-weight:700;color:#ff416c;font-size:13px;'>Backend not running</div>
-            <div style='font-size:12px;color:#94a3b8;margin-top:2px;'>
-              Open a terminal and run: <code style='color:#00d2ff;background:#0d1f38;
-              padding:2px 8px;border-radius:6px;'>python run_backend.py</code>
-            </div>
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown("""
-        <div style='background:rgba(0,230,118,0.07);border:1px solid rgba(0,230,118,0.25);
-                    border-radius:12px;padding:10px 16px;margin-bottom:20px;
-                    display:flex;align-items:center;gap:10px;'>
-          <span style='font-size:16px;'>🟢</span>
-          <span style='font-size:12px;color:#00e676;font-weight:600;'>Backend is running — ready to use</span>
-        </div>
-        """, unsafe_allow_html=True)
+    def render_auth():
+        st.title("Login Page")
 
-    # ── Hero ──────────────────────────────────────────────────────────────────
-    st.markdown("""
-    <div style='text-align:center;padding:20px 0 28px;'>
-      <div style='font-size:56px;margin-bottom:12px;'>🚗</div>
-      <div style='font-size:2.6rem;font-weight:800;font-family:Syne,sans-serif;'
-           class='gradient-text'>CarpoolSafe</div>
-      <div style='color:#4a7a98;font-size:14px;margin-top:10px;line-height:1.6;'>
-        AI ride matching &nbsp;·&nbsp; Real-time GPS tracking &nbsp;·&nbsp; Women safety &nbsp;·&nbsp; UPI payments
-      </div>
-      <div style='display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px;'>
-        <span class='badge badge-cyan'>🤖 AI Matching</span>
-        <span class='badge badge-green'>📍 Live GPS</span>
-        <span class='badge badge-pink'>🛡️ Women Safety</span>
-        <span class='badge badge-purple'>💳 UPI Pay</span>
-        <span class='badge badge-amber'>👥 Group Rides</span>
-      </div>
-    </div>
-    """, unsafe_allow_html=True)
+    email = st.text_input("Email")
+    password = st.text_input("Password", type="password")
 
-    # ── Tabs ──────────────────────────────────────────────────────────────────
-    tab_login, tab_reg = st.tabs(["🔑  Sign In", "✨  Create Account"])
+    if st.button("Login"):
+        st.write("Clicked login")
 
     # ── SIGN IN TAB ───────────────────────────────────────────────────────────
     with tab_login:
