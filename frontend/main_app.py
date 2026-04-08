@@ -171,14 +171,31 @@ def render_auth():
     def render_auth():
         st.title("Login Page")
 
+    # simple login (optional debug)
+        email = st.text_input("Email")
+        password = st.text_input("Password", type="password")
+
+    if st.button("Login"):
+        st.write("Clicked login")
+
     # tabs
     tab_login, tab_signup = st.tabs(["Login", "Create Account"])
 
     with tab_login:
         st.markdown("<br>", unsafe_allow_html=True)
 
-        li_email = st.text_input("Email address", placeholder="you@example.com", key="li_email")
-        li_pass  = st.text_input("Password", type="password", placeholder="Your password", key="li_pass")
+        li_email = st.text_input(
+            "Email address",
+            placeholder="you@example.com",
+            key="li_email"
+        )
+
+        li_pass = st.text_input(
+            "Password",
+            type="password",
+            placeholder="Your password",
+            key="li_pass"
+        )
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -188,9 +205,7 @@ def render_auth():
             elif not li_pass:
                 st.error("⚠️ Please enter your password.")
             else:
-                with st.spinner("Signing in..."):
-                    ok = do_login(li_email.strip().lower(), li_pass)
-
+                ok = do_login(li_email.strip().lower(), li_pass)
                 if ok:
                     st.success(f"Welcome back, {st.session_state.user_name}! 👋")
                     st.rerun()
