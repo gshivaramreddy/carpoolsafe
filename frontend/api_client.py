@@ -7,7 +7,7 @@ from typing import Optional, Dict, Any
 load_dotenv()
 
 BACKEND_URL = "https://carpoolsafe.onrender.com"
-TIMEOUT = 15
+TIMEOUT = 60
 
 
 def build_url(endpoint: str) -> str:
@@ -55,13 +55,13 @@ def post(endpoint: str, data: dict, auth: bool = True):
         return None
 
 
-def get(endpoint: str):
+def get(endpoint):
     try:
-        url = build_url(endpoint)
-        resp = requests.get(url, headers=get_headers(), timeout=TIMEOUT)
-        return handle_response(resp)
-    except Exception:
-        return None
+        res = requests.get(build_url(endpoint), timeout=TIMEOUT)
+        return res.json()
+    except Exception as e:
+        st.error(f"⚠️ Backend not ready: {e}")
+        return []
 
 
 def is_logged_in():

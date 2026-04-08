@@ -421,9 +421,13 @@ def render_dashboard():
 
 
 # ── MAIN ROUTING ───────────────────────────────────────────────────────────────
+st.write("🔥 App started")   # 👈 ADD THIS FIRST
+
 if not is_logged_in():
+    st.write("👉 Not logged in")
     render_auth()
 else:
+    st.write("👉 Logged in, loading dashboard")  # 👈 ADD THIS
     try:
         render_dashboard()
     except Exception as e:
