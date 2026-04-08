@@ -216,7 +216,7 @@ def render_auth():
         </div>""", unsafe_allow_html=True)
 
     # ── CREATE ACCOUNT TAB ────────────────────────────────────────────────────
-    with tab_sighup:
+    with tab_signup:
         st.markdown("<br>", unsafe_allow_html=True)
         c1, c2 = st.columns(2)
         with c1:
