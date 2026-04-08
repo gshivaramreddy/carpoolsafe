@@ -323,7 +323,7 @@ def render_dashboard():
 
     # Quick action cards
     # Quick action cards (SAFE VERSION)
-st.write("🧪 Rendering quick cards...")
+    st.write("🧪 Rendering quick cards...")
 
 try:
     c1, c2, c3, c4 = st.columns(4)
