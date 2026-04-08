@@ -430,9 +430,6 @@ except Exception as e:
 
 
 # ── MAIN ROUTING ───────────────────────────────────────────────────────────────
-st.write("🔥 App started")   # 👈 ADD THIS FIRST
-
-st.write("LOGIN STATE:", st.session_state)
 
 if not is_logged_in():
     render_auth()
