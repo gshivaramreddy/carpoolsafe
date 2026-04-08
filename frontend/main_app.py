@@ -434,9 +434,12 @@ except Exception as e:
 # ── MAIN ROUTING ───────────────────────────────────────────────────────────────
 
 def main():
+    st.write("🚀 APP STARTED")
+
     if not is_logged_in():
         render_auth()
     else:
         render_dashboard()
+
 
 main()
