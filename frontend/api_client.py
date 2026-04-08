@@ -6,7 +6,7 @@ from typing import Optional, Dict, Any
 
 load_dotenv()
 
-BBACKEND_URL = "https://carpoolsafe.onrender.com"
+BACKEND_URL = "https://carpoolsafe.onrender.com"
 TIMEOUT = 15
 
 
