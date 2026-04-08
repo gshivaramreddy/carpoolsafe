@@ -404,4 +404,3 @@ def main():
         render_dashboard()
 
 
-main()
