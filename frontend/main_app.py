@@ -3,8 +3,10 @@ CarpoolSafe — Main entry point.
 Handles: Login, Register, Dashboard.
 No sidebar shown before login.
 """
-from api_client import do_signup
 import streamlit as st
+st.write("🚀 APP STARTED")
+from api_client import do_signup
+
 import sys, os
 
 
