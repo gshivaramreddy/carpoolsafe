@@ -88,11 +88,9 @@ def do_logout():
 
 
 def do_login(email: str, password: str) -> bool:
-    result = post("/auth/login", {"username": email, "password": password}, auth=False)
-    st.write("🔍 FULL RESULT:", result)  # ADD THIS
+    result = post("/auth/login", {"email": email, "password": password}, auth=False)
     if result:
         user = result.get("user", {})
-        st.write("👤 USER OBJECT:", user)  # ADD THIS
         st.session_state.token = result.get("access_token")
         st.session_state.user_id = user.get("id")
         st.session_state.user_name = user.get("name")
