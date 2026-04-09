@@ -4,18 +4,15 @@ Handles: Login, Register, Dashboard.
 No sidebar shown before login.
 """
 import streamlit as st
-st.write("🚀 APP STARTED")
 from api_client import do_signup
-
 import sys, os
-
-
 from api_client import post, get, is_logged_in, do_login, do_logout, backend_is_up
+
 st.set_page_config(
     page_title="CarpoolSafe",
     page_icon="🚗",
     layout="wide",
-    initial_sidebar_state="collapsed",   # ← collapsed until logged in
+    initial_sidebar_state="collapsed",
 )
 st.markdown("""
 <style>
@@ -41,7 +38,6 @@ html,body,[data-testid="stApp"] {
 [data-testid="stSidebar"] * { color:#e8f4fd !important; }
 h1,h2,h3,h4 { font-family:'Syne',sans-serif !important; }
 
-/* Default button — gradient */
 .stButton > button {
   background:linear-gradient(135deg,#00d2ff,#7b2ff7) !important;
   color:#fff !important; font-weight:700 !important;
@@ -56,7 +52,6 @@ h1,h2,h3,h4 { font-family:'Syne',sans-serif !important; }
   box-shadow:0 8px 32px rgba(123,47,247,0.4) !important;
 }
 
-/* Inputs */
 .stTextInput>div>div>input,
 .stTextArea>div>div>textarea,
 .stSelectbox>div>div>div,
@@ -72,7 +67,6 @@ h1,h2,h3,h4 { font-family:'Syne',sans-serif !important; }
   box-shadow:0 0 0 3px rgba(0,210,255,0.12) !important;
 }
 
-/* Tabs */
 .stTabs [data-baseweb="tab-list"] {
   background:#0d1f38 !important; border-radius:14px !important;
   padding:5px !important; gap:4px !important; border:1px solid #1a3a5c !important;
@@ -86,7 +80,6 @@ h1,h2,h3,h4 { font-family:'Syne',sans-serif !important; }
   color:#00d2ff !important; border-bottom:2px solid #00d2ff !important;
 }
 
-/* Metrics */
 [data-testid="metric-container"] {
   background:linear-gradient(135deg,#0d1f38,#0a172d) !important;
   border:1px solid #1a3a5c !important; border-radius:16px !important;
@@ -94,7 +87,6 @@ h1,h2,h3,h4 { font-family:'Syne',sans-serif !important; }
 }
 [data-testid="stMetricValue"] { color:#e8f4fd !important; }
 
-/* Misc */
 .stCheckbox label,.stRadio label { color:#b8d4e8 !important; }
 .streamlit-expanderHeader {
   background:#0d1f38 !important; border-radius:12px !important;
@@ -106,7 +98,6 @@ h1,h2,h3,h4 { font-family:'Syne',sans-serif !important; }
 [data-testid="stPageLink"] a { color:#6b8fa8 !important; border-radius:10px !important; }
 [data-testid="stPageLink"] a:hover { background:#0d1f38 !important; color:#00d2ff !important; }
 
-/* Component classes */
 .gcard {
   background:linear-gradient(135deg,#0d1f38,#0a172d);
   border:1px solid #1a3a5c; border-radius:20px; padding:22px; margin-bottom:14px;
@@ -151,14 +142,14 @@ for k in ["token","user_id","user_name","user_role","user_gender"]:
     if k not in st.session_state:
         st.session_state[k] = None
 
-# 🔥 FORCE RESET IF TOKEN INVALID
 if st.session_state.get("token") == "":
     st.session_state.token = None
+
 # ══════════════════════════════════════════════════════════════════════════════
-# LOGIN / REGISTER  — no sidebar, completely clean page
+# LOGIN / REGISTER
 # ══════════════════════════════════════════════════════════════════════════════
 def render_auth():
-    # Hide sidebar + its collapse arrow completely
+    # Hide sidebar completely
     st.markdown("""
     <style>
     [data-testid="stSidebar"]        { display:none !important; }
@@ -167,46 +158,41 @@ def render_auth():
     </style>
     """, unsafe_allow_html=True)
 
-    # ── Backend status banner ──────────────────────────────────────────────────
-    def render_auth():
-        st.title("Login Page")
-
-    # simple login (optional debug)
-        
-
     # tabs
-        tab_login, tab_signup = st.tabs(["Login", "Create Account"])
+    tab_login, tab_signup = st.tabs(["Login", "Create Account"])
 
-        with tab_login:
-            st.markdown("<br>", unsafe_allow_html=True)
+    # ── LOGIN TAB ─────────────────────────────────────────────────────────────
+    with tab_login:
+        st.markdown("<br>", unsafe_allow_html=True)
 
-            li_email = st.text_input(
-                "Email address",
-                placeholder="you@example.com",
-                key="li_email"
-            )
+        li_email = st.text_input(
+            "Email address",
+            placeholder="you@example.com",
+            key="li_email"
+        )
 
-            li_pass = st.text_input(
-                "Password",
-                type="password",
-                placeholder="Your password",
-                key="li_pass"
-            )
+        li_pass = st.text_input(
+            "Password",
+            type="password",
+            placeholder="Your password",
+            key="li_pass"
+        )
 
-            st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
 
-            if st.button("Sign In  →", key="btn_login", use_container_width=True):
-                if not li_email.strip():
-                    st.error("⚠️ Please enter your email address.")
+        if st.button("Sign In  →", key="btn_login", use_container_width=True):
+            if not li_email.strip():
+                st.error("⚠️ Please enter your email address.")
             elif not li_pass:
-                    st.error("⚠️ Please enter your password.")
+                st.error("⚠️ Please enter your password.")
             else:
                 ok = do_login(li_email.strip().lower(), li_pass)
-                st.write("LOGIN RESPONSE:", ok)
                 if ok:
                     st.success(f"Welcome back, {st.session_state.user_name}! 👋")
                     st.rerun()
-                    
+                else:
+                    st.error("❌ Invalid email or password. Please try again.")
+
         st.markdown("""
         <div style='text-align:center;margin-top:14px;font-size:13px;color:#4a7a98;'>
           No account? Click the <b style='color:#00d2ff;'>Create Account</b> tab above ↑
@@ -232,7 +218,6 @@ def render_auth():
         st.markdown("<br>", unsafe_allow_html=True)
 
         if st.button("Create Account  →", key="btn_register", use_container_width=True):
-            # Field validation
             err = None
             if not rg_name.strip():
                 err = "Full name is required."
@@ -255,14 +240,12 @@ def render_auth():
                     "vehicle_number": rg_vnum.strip() or None,
                 }
                 with st.spinner("Creating your account..."):
-                    
                     result = do_signup(payload)
 
                 if result:
                     user = result.get("user", {})
-
-                    st.session_state.token = result.get("access_token")
-                    st.session_state.user_id = result.get("user_id")
+                    st.session_state.token     = result.get("access_token")
+                    st.session_state.user_id   = result.get("user_id")
                     st.session_state.user_name = result.get("name")
                     st.session_state.user_role = result.get("role")
                     st.session_state.user_gender = ""
@@ -270,18 +253,19 @@ def render_auth():
                     st.success(f"🎉 Account created! Welcome, {user.get('name')}!")
                     st.balloons()
                     st.rerun()
+                else:
+                    st.error("❌ Account creation failed. Email may already be in use.")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
 # DASHBOARD — shown after login, sidebar visible
 # ══════════════════════════════════════════════════════════════════════════════
 def render_dashboard():
-    st.write("✅ Dashboard loaded")
     try:
         import sidebar
         sidebar.render_sidebar()
     except Exception as e:
-        st.error(f"Sidebar error: {e}")   # ✅ correctly indented
+        st.error(f"Sidebar error: {e}")
 
     import datetime
     hour = datetime.datetime.now().hour
@@ -297,45 +281,42 @@ def render_dashboard():
     """, unsafe_allow_html=True)
 
     # Quick action cards
-    # Quick action cards (SAFE VERSION)
-    st.write("🧪 Rendering quick cards...")
+    try:
+        c1, c2, c3, c4 = st.columns(4)
 
-try:
-    c1, c2, c3, c4 = st.columns(4)
+        cards = [
+            ("🚗","Create Ride","Offer seats","#00d2ff","rgba(0,210,255,0.08)","pages/1_Create_Ride.py"),
+            ("🔍","Find Ride","AI matches","#7b2ff7","rgba(123,47,247,0.08)","pages/2_Search_Rides.py"),
+            ("👥","Group Rides","Plan trips","#00e676","rgba(0,230,118,0.08)","pages/7_Group_Rides.py"),
+            ("🛡️","Safety","SOS tools","#ff416c","rgba(255,65,108,0.08)","pages/5_Safety_Panel.py"),
+        ]
 
-    cards = [
-        ("🚗","Create Ride","Offer seats","#00d2ff","rgba(0,210,255,0.08)","pages/1_Create_Ride.py"),
-        ("🔍","Find Ride","AI matches","#7b2ff7","rgba(123,47,247,0.08)","pages/2_Search_Rides.py"),
-        ("👥","Group Rides","Plan trips","#00e676","rgba(0,230,118,0.08)","pages/7_Group_Rides.py"),
-        ("🛡️","Safety","SOS tools","#ff416c","rgba(255,65,108,0.08)","pages/5_Safety_Panel.py"),
-    ]
+        for col, card in zip([c1,c2,c3,c4], cards):
+            icon, title, sub, color, bg, page = card
+            with col:
+                st.markdown(f"{icon} **{title}**")
+                st.caption(sub)
+                try:
+                    st.page_link(page, label="Open")
+                except Exception as e:
+                    st.error(f"Page error: {e}")
 
-    for col, card in zip([c1,c2,c3,c4], cards):
-        icon, title, sub, color, bg, page = card
+    except Exception as e:
+        st.error(f"🚨 Cards crash: {e}")
 
-        with col:
-            st.markdown(f"{icon} **{title}**")
-            st.caption(sub)
-
-            try:
-                st.page_link(page, label="Open")
-            except Exception as e:
-                st.error(f"Page error: {e}")
-
-except Exception as e:
-    st.error(f"🚨 Cards crash: {e}")
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Stats
     try:
-        rides = get("/ride/my-rides") or []
+        rides    = get("/ride/my-rides")     or []
         bookings = get("/booking/my-bookings") or []
-        groups = get("/group/my-groups") or []
+        groups   = get("/group/my-groups")   or []
         payments = get("/payment/my-payments") or []
+        paid     = sum(p.get("amount", 0) for p in payments if p.get("status") == "paid")
     except Exception as e:
         st.error(f"API Error: {e}")
-        rides, bookings, groups, payments = [], [], [], []
-        paid = 0 
+        rides, bookings, groups, payments, paid = [], [], [], [], 0
+
     c1,c2,c3,c4 = st.columns(4)
     c1.metric("🚗 Rides Created", len(rides),    delta=f"{len([r for r in rides if r.get('status')=='scheduled'])} scheduled")
     c2.metric("🎟️ My Bookings",  len(bookings),  delta=f"{len([b for b in bookings if b.get('status')=='confirmed'])} active")
@@ -405,13 +386,10 @@ except Exception as e:
 
 
 # ── MAIN ROUTING ───────────────────────────────────────────────────────────────
-
 def main():
-    st.write("🚀 APP STARTED")
-
     if not is_logged_in():
         render_auth()
     else:
         render_dashboard()
 
-
+main()
