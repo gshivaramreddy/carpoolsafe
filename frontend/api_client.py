@@ -7,7 +7,6 @@ from typing import Optional, Dict, Any
 load_dotenv()
 
 BACKEND_URL = "https://carpoolsafe.onrender.com"
-st.write("🚀 BACKEND URL:", BACKEND_URL)
 TIMEOUT = 60
 
 
@@ -82,7 +81,7 @@ def get(endpoint):
 
 
 def is_logged_in():
-    return False   # 🔥 FORCE LOGOUT ALWAYS
+    return bool(st.session_state.get("token"))
 
 def do_logout():
     st.session_state.clear()
@@ -90,7 +89,6 @@ def do_logout():
 
 def do_login(email: str, password: str) -> bool:
     result = post("/auth/login", {"username": email, "password": password}, auth=False)
-    st.write("API RESULT:", result)
     if result:
         user = result.get("user", {})
 
