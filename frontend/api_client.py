@@ -88,36 +88,22 @@ def do_logout():
     st.session_state.clear()
 
 
-def do_login(email, password):
-    try:
-        url = build_url("/auth/login")
+def do_login(email: str, password: str) -> bool:
+    result = post("/auth/login", {"username": email, "password": password}, auth=False)
+    st.write("API RESULT:", result)
+    if result:
+        user = result.get("user", {})
 
-        response = requests.post(
-            url,
-            json={
-                "email": email,
-                "password": password
-            },
-            timeout=TIMEOUT
-        )
+        st.session_state.token = result.get("access_token")
+        st.session_state.user_id = user.get("id")
+        st.session_state.user_name = user.get("name")
+        st.session_state.user_role = user.get("role")
+        st.session_state.user_gender = user.get("gender", "")
 
-        data = handle_response(response)
+        return True
 
-        if data and "access_token" in data:
-            # ✅ STORE EVERYTHING
-            st.session_state.token = data["access_token"]
-            st.session_state.user_id = data.get("user_id")
-            st.session_state.user_name = data.get("name")
-            st.session_state.role = data.get("role")
-            st.session_state.logged_in = True
+    return False
 
-            return True
-
-        return False
-
-    except Exception as e:
-        st.error(f"Login failed: {str(e)}")
-        return False
 
 def do_signup(data: dict):
     return post("/auth/signup", data, auth=False)

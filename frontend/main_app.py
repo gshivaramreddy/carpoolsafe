@@ -172,45 +172,41 @@ def render_auth():
         st.title("Login Page")
 
     # simple login (optional debug)
-        email = st.text_input("Email")
-        password = st.text_input("Password", type="password")
-
-    if st.button("Login"):
-        st.write("Clicked login")
+        
 
     # tabs
-    tab_login, tab_signup = st.tabs(["Login", "Create Account"])
+        tab_login, tab_signup = st.tabs(["Login", "Create Account"])
 
-    with tab_login:
-        st.markdown("<br>", unsafe_allow_html=True)
+        with tab_login:
+            st.markdown("<br>", unsafe_allow_html=True)
 
-        li_email = st.text_input(
-            "Email address",
-            placeholder="you@example.com",
-            key="li_email"
-        )
+            li_email = st.text_input(
+                "Email address",
+                placeholder="you@example.com",
+                key="li_email"
+            )
 
-        li_pass = st.text_input(
-            "Password",
-            type="password",
-            placeholder="Your password",
-            key="li_pass"
-        )
+            li_pass = st.text_input(
+                "Password",
+                type="password",
+                placeholder="Your password",
+                key="li_pass"
+            )
 
-        st.markdown("<br>", unsafe_allow_html=True)
+            st.markdown("<br>", unsafe_allow_html=True)
 
-        if st.button("Sign In  →", key="btn_login", use_container_width=True):
-            if not li_email.strip():
-                st.error("⚠️ Please enter your email address.")
+            if st.button("Sign In  →", key="btn_login", use_container_width=True):
+                if not li_email.strip():
+                    st.error("⚠️ Please enter your email address.")
             elif not li_pass:
-                st.error("⚠️ Please enter your password.")
+                    st.error("⚠️ Please enter your password.")
             else:
                 ok = do_login(li_email.strip().lower(), li_pass)
                 st.write("LOGIN RESPONSE:", ok)
                 if ok:
                     st.success(f"Welcome back, {st.session_state.user_name}! 👋")
                     st.rerun()
-
+                    
         st.markdown("""
         <div style='text-align:center;margin-top:14px;font-size:13px;color:#4a7a98;'>
           No account? Click the <b style='color:#00d2ff;'>Create Account</b> tab above ↑
