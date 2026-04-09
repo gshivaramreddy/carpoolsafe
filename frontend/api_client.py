@@ -89,8 +89,8 @@ def do_logout():
 
 
 def do_login(email: str, password: str) -> bool:
-    result = post("/auth/login", {"email": email, "password": password}, auth=False)
-
+    result = post("/auth/login", {"username": email, "password": password}, auth=False)
+    st.write("API RESULT:", result)
     if result:
         user = result.get("user", {})
 

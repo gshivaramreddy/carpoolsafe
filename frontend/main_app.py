@@ -206,6 +206,7 @@ def render_auth():
                 st.error("⚠️ Please enter your password.")
             else:
                 ok = do_login(li_email.strip().lower(), li_pass)
+                st.write("LOGIN RESPONSE:", ok)
                 if ok:
                     st.success(f"Welcome back, {st.session_state.user_name}! 👋")
                     st.rerun()
