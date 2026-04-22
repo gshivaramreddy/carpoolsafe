@@ -7,6 +7,8 @@ from frontend.maps_component import render_driver_tracking_sender, render_live_t
 
 st.set_page_config(page_title="Live Tracking – CarpoolSafe", page_icon="📍", layout="wide")
 inject_css()
+
+st.markdown('<style>[data-testid="stSidebarNav"]{display:none!important;}</style>', unsafe_allow_html=True)
 if not is_logged_in():
     st.warning("🔒 Please log in first.")
     st.page_link("app.py", label="← Go to Login")

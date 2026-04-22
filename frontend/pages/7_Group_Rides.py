@@ -7,6 +7,8 @@ from datetime import datetime, timedelta, date, time
 
 st.set_page_config(page_title="Group Rides – CarpoolSafe", page_icon="👥", layout="wide")
 inject_css()
+
+st.markdown('<style>[data-testid="stSidebarNav"]{display:none!important;}</style>', unsafe_allow_html=True)
 if not is_logged_in():
     st.warning("🔒 Please log in first.")
     st.page_link("app.py", label="← Go to Login")
