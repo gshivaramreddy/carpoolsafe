@@ -3,7 +3,10 @@ Shared sidebar — single source of truth for navigation.
 All pages import and call render_sidebar() from here.
 """
 import streamlit as st
-from frontend.api_client import do_logout, get   # ← ADD get here
+try:
+    from frontend.api_client import do_logout, get
+except ImportError:
+    from api_client import do_logout, get
 import uuid
 
 

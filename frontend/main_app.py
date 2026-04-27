@@ -231,17 +231,18 @@ def render_auth():
         li_email = st.text_input(
             "Email address",
             placeholder="you@example.com",
-            key="li_email"
+            key="login_form_email"
         )
         li_pass = st.text_input(
             "Password",
             type="password",
             placeholder="Your password",
-            key="li_pass"
+            key="login_form_pass"
         )
         st.markdown("<br>", unsafe_allow_html=True)
 
-        if st.button("Sign In  →", key="btn_login", use_container_width=True):
+
+        if st.button("Sign In  →", key="login_form_btn", use_container_width=True):
             if not li_email.strip():
                 st.error("⚠️ Please enter your email address.")
             elif not li_pass:
