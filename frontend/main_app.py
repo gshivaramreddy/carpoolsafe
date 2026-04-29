@@ -323,9 +323,10 @@ def render_auth():
 # DASHBOARD — shown after login, sidebar visible
 # ══════════════════════════════════════════════════════════════════════════════
 def render_dashboard():
-    from sidebar import render_sidebar
-    render_sidebar()
-
+    try:
+        from frontend.sidebar import render_sidebar
+    except ImportError:
+        from sidebar import render_sidebar
     import datetime
     hour  = datetime.datetime.now().hour
     greet = "Good morning" if hour < 12 else "Good afternoon" if hour < 17 else "Good evening"
