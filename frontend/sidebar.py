@@ -13,15 +13,15 @@ import uuid
 def render_sidebar():
     """Render the left navigation sidebar. Only call when user is logged in."""
 
-    # ▼▼▼ ADD THESE 7 LINES — fixes "Good morning, None" ▼▼▼
+    
     if not st.session_state.get("user_name"):
-        profile = get("/auth/me", silent=True)
+        profile = get("/auth/me")
         if profile:
             st.session_state.user_name   = profile.get("name", "User")
             st.session_state.user_role   = profile.get("role", "rider")
             st.session_state.user_gender = profile.get("gender", "")
             st.session_state.user_id     = profile.get("id", "")
-    # ▲▲▲ END OF ADDITION ▲▲▲
+    
 
     gender = (st.session_state.get("user_gender") or "").lower()
     role   = st.session_state.get("user_role") or "rider"
