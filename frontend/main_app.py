@@ -327,6 +327,15 @@ def render_dashboard():
         from frontend.sidebar import render_sidebar
     except ImportError:
         from sidebar import render_sidebar
+        render_sidebar()
+    
+
+    if not st.session_state.get("user_name"):
+        profile = get("/auth/me")
+        if profile:
+            st.session_state.user_name = profile.get("name", "User")
+    
+    name = st.session_state.get("user_name") or "User"
     import datetime
     hour  = datetime.datetime.now().hour
     greet = "Good morning" if hour < 12 else "Good afternoon" if hour < 17 else "Good evening"
