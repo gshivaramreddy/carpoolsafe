@@ -366,10 +366,10 @@ def render_dashboard():
     st.divider()
 
     # Stats
-    rides    = get("/ride/my-rides",         silent=True) or []
-    bookings = get("/booking/my-bookings",   silent=True) or []
-    groups   = get("/group/my-groups",       silent=True) or []
-    payments = get("/payment/my-payments",   silent=True) or []
+    rides    = get("/ride/my-rides",         ) or []
+    bookings = get("/booking/my-bookings",   ) or []
+    groups   = get("/group/my-groups",       ) or []
+    payments = get("/payment/my-payments",   ) or []
     paid     = sum(p.get("amount", 0) for p in payments if p.get("status") == "completed")
 
     m1, m2, m3, m4 = st.columns(4)
