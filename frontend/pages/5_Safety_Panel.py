@@ -1,6 +1,6 @@
 import streamlit as st, sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-from frontend.api_client import post, get,  is_logged_in
+from frontend.api_client import post, get,put, is_logged_in
 from frontend.theme import inject_css
 from frontend.sidebar import render_sidebar
 
